@@ -1,30 +1,25 @@
-# Print hostname and domain name
-$hostname = [System.Net.Dns]::GetHostName()
+# Get computer name, local IP address, and domain
+$computerName = $env:COMPUTERNAME
+$localIP = (Get-NetIPAddress | Where-Object {$_.AddressFamily -eq 'IPv4' -and $_.InterfaceAlias -like 'Wi-Fi'}).IPAddress
 $domain = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain().Name
-Write-Host "Hostname: $hostname"
+
+# Get current user name, SID, and group memberships
+$windowsIdentity = [System.Security.Principal.WindowsIdentity]::GetCurrent()
+$userName = $windowsIdentity.Name
+$sid = $windowsIdentity.User.Value
+$groups = $windowsIdentity.Groups | ForEach-Object {$_.Translate([System.Security.Principal.NTAccount]).Value}
+
+# Get current user privileges
+$principal = [System.Security.Principal.WindowsPrincipal]::new($windowsIdentity)
+$privileges = $principal.GetEffectiveRightsAndPermissions('').Privileges | ForEach-Object {$_.DisplayName}
+
+Write-Host "Hostname: $computerName"
 Write-Host "Domain: $domain"
-
-# Print local IP address
-$ipAddress = [System.Net.Dns]::GetHostAddresses($hostname) | Where-Object { $_.AddressFamily -eq 'InterNetwork' } | Select-Object -First 1
-Write-Host "Local IP address: $ipAddress"
-
-# Print domain controllers
-$domainObj = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()
-$domainControllers = $domainObj.DomainControllers | Select-Object Name, IPv4Address, SiteName
-Write-Host "Domain controllers:"
-$domainControllers | ForEach-Object { Write-Host "  $($_.Name) ($($_.IPv4Address)) $($_.SiteName)" }
-
-# Get current user and privileges
-$user = [System.Security.Principal.WindowsIdentity]::GetCurrent()
-$sid = $user.User.Value
-$groups = $user.Groups | Select-Object Name, Sid
-$privileges = [System.Security.Principal.WindowsPrincipal]::new($user).GetEffectiveRightsAndPermissions() | Select-Object Name, Value
-Write-Host "Current user: $($user.Name)"
+Write-Host "Local IP address: $localIP"
+Write-Host "Current user: $userName"
 Write-Host "SID: $sid"
-Write-Host "Groups:"
-$groups | ForEach-Object { Write-Host "  $($_.Name) ($($_.Sid.Value))" }
-Write-Host "Privileges:"
-$privileges | ForEach-Object { Write-Host "  $($_.Name) ($($_.Value))" }
+Write-Host "Groups:`n$($groups -join "`n")"
+Write-Host "Privileges:`n$($privileges -join "`n")"
 
 # Import powerview and powerup scripts from GitHub repository
 $scriptDir = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath(".\")
