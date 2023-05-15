@@ -31,7 +31,7 @@ try {
     Import-Module PowerView
     Write-Output "Powerview loaded"
 } catch {
-    Write-Output "Could not load Powerview"
+    Write-Output "Could not load Powerview: $($_.Exception.Message)"
 }
 
 try {
@@ -40,5 +40,5 @@ try {
     Import-Module PowerUp
     Write-Output "PowerUp loaded"
 } catch {
-    Write-Output "Could not load PowerUp"
+    Write-Output "Could not load PowerUp: $($_.Exception.Message)"
 }
