@@ -2,7 +2,7 @@
 $computerName = $env:COMPUTERNAME
 $localIP = (Get-NetIPAddress | Where-Object {$_.AddressFamily -eq 'IPv4' -and $_.InterfaceAlias -like 'Wi-Fi'}).IPAddress
 $domain = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain().Name
-$domainController = (Get-ADDomainController -Discover -Service PrimaryDC).HostName
+$domainController = ([System.DirectoryServices.ActiveDirectory.Domain]::GetDomain([System.DirectoryServices.ActiveDirectory.DirectoryContext]::Forest)).DomainControllers[0].Name
 
 ## User information
 $windowsIdentity = [System.Security.Principal.WindowsIdentity]::GetCurrent()
