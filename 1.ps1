@@ -2,15 +2,20 @@
 $computerName = $env:COMPUTERNAME
 $localIP = (Get-NetIPAddress | Where-Object {$_.AddressFamily -eq 'IPv4' -and $_.InterfaceAlias -like 'Wi-Fi'}).IPAddress
 $domain = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain().Name
-$domainController = ([System.DirectoryServices.ActiveDirectory.Domain]::GetDomain([System.DirectoryServices.ActiveDirectory.DirectoryContext]::Forest)).DomainControllers[0].Name
+$domainContext = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain().GetDirectoryContext()
+$domainController = ([System.DirectoryServices.ActiveDirectory.DomainController]::FindOne($domainContext)).Name
 
 ## User information
 $windowsIdentity = [System.Security.Principal.WindowsIdentity]::GetCurrent()
 $userName = $windowsIdentity.Name
 $sid = $windowsIdentity.User.Value
 $groups = $windowsIdentity.Groups | ForEach-Object {$_.Translate([System.Security.Principal.NTAccount]).Value}
-$principal = [System.Security.Principal.WindowsPrincipal]::new($windowsIdentity)
-$privileges = $principal.GetEffectiveRightsAndPermissions('').Privileges | ForEach-Object {$_.DisplayName}
+$objectSecurity = (Get-Acl 'C:\').GetObjectSecurity()
+$privileges = [System.Enum]::GetValues([System.Security.AccessControl.PrivilegeType]) | ForEach-Object {
+    if ($objectSecurity.AccessCheck('Everyone', $_, $false)) {
+        $_.ToString()
+    }
+}
 
 Write-Host "`n"
 Write-Host "## Computer information"
