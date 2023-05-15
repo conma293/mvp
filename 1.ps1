@@ -24,7 +24,7 @@ Write-Host "## User information"
 Write-Host "Current user: $userName"
 Write-Host "SID: $sid"
 Write-Host "Groups:`n$($groups -join "`n")"
-Write-Host "Privileges:`n$($privileges -join "`n")" -Newline
+Write-Host "Privileges:`n$($privileges -join "`n")"
 
 Write-Host "`n"
 Write-Host "Importing powerview and powerup modules"
