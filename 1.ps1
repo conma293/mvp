@@ -10,9 +10,13 @@ $windowsIdentity = [System.Security.Principal.WindowsIdentity]::GetCurrent()
 $userName = $windowsIdentity.Name
 $sid = $windowsIdentity.User.Value
 $groups = $windowsIdentity.Groups | ForEach-Object {$_.Translate([System.Security.Principal.NTAccount]).Value}
-$objectSecurity = (Get-Acl 'C:\').GetObjectSecurity()
-$privileges = [System.Enum]::GetValues([System.Security.AccessControl.PrivilegeType]) | ForEach-Object {
-    if ($objectSecurity.AccessCheck('Everyone', $_, $false)) {
+
+## Privileges
+$privilegeType = [System.Enum]::GetValues([System.Security.AccessControl.PrivilegeType])
+$privileges = $privilegeType | ForEach-Object {
+    $privilege = New-Object System.Security.AccessControl.Privilege($_)
+    $isEnabled = $privilege.EnablePrivilege()
+    if ($isEnabled) {
         $_.ToString()
     }
 }
