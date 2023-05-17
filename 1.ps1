@@ -4,6 +4,7 @@ $localIP = (Get-NetIPAddress | Where-Object {$_.AddressFamily -eq 'IPv4' -and $_
 $domain = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain().Name
 $domainContext = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain().GetDirectoryContext()
 $domainController = ([System.DirectoryServices.ActiveDirectory.DomainController]::FindOne($domainContext)).Name
+$logonserver=$Env:LOGONSERVER
 
 ## User information
 $windowsIdentity = [System.Security.Principal.WindowsIdentity]::GetCurrent()
@@ -27,6 +28,7 @@ Write-Host "Hostname: $computerName"
 Write-Host "Local IP address: $localIP"
 Write-Host "Domain: $domain"
 Write-Host "Domain Controller: $domainController"
+Write-Host "Logged on from: $logonserver"
 
 Write-Host "`n"
 Write-Host "## User information"
