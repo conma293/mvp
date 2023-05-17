@@ -37,6 +37,7 @@ Write-Host "Groups:`n$($groups -join "`n")"
 Write-Host "`n"
 Write-Host "Privileges:`n$($privileges -join "`n")"
 
+
 Write-Host "`n"
 Write-Host "Importing powerview and powerup modules"
 ## Import powerview and powerup modules
