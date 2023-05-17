@@ -101,3 +101,20 @@ if (Test-Path ".\PowerView.ps1") {
         Write-Output "Importing PowerView module..."
         . ".\PowerView.ps1"
         Write-Output "PowerView imported successfully"
+        }
+        catch {
+        Write-Output "Could not IMPORT PowerView: $($_.Exception.Message)"
+    }
+        }
+
+## Import PowerUp script if available
+if (Test-Path ".\PowerUp.ps1") {
+    try {
+        Write-Output "Importing PowerUp module..."
+        . ".\PowerUp.ps1"
+        Write-Output "PowerUp imported successfully"
+        }
+        catch {
+        Write-Output "Could not IMPORT PowerUp: $($_.Exception.Message)"
+    }
+        }
