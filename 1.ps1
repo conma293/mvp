@@ -15,10 +15,19 @@ $groups = $windowsIdentity.Groups | ForEach-Object {$_.Translate([System.Securit
 ## Privileges
 $privilegeType = [System.Enum]::GetValues([System.Security.AccessControl.PrivilegeType])
 $privileges = $privilegeType | ForEach-Object {
-    $privilege = New-Object System.Security.AccessControl.Privilege($_)
-    $isEnabled = $privilege.EnablePrivilege()
-    if ($isEnabled) {
-        $_.ToString()
+    $privilege = $null
+    try {
+        $privilege = New-Object System.Security.AccessControl.Privilege($_)
+        $isEnabled = $privilege.EnablePrivilege()
+        if ($isEnabled) {
+            $_.ToString()
+        }
+    } catch {
+        Write-Host "Failed to check privilege: $_"
+    } finally {
+        if ($privilege -ne $null) {
+            $privilege.RevertPrivilege()
+        }
     }
 }
 
