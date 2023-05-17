@@ -31,6 +31,17 @@ $privileges = $privilegeType | ForEach-Object {
     }
 }
 
+## Kerberos tickets
+$tickets = $windowsIdentity.Tickets | ForEach-Object {
+    $ticket = $_
+    $ticketInfo = @{
+        "Server" = $ticket.ServerName
+        "Start Time" = $ticket.StartTime
+        "End Time" = $ticket.EndTime
+    }
+    New-Object -TypeName PSObject -Property $ticketInfo
+}
+
 Write-Host "`n"
 Write-Host "## Computer information"
 Write-Host "Hostname: $computerName"
@@ -48,6 +59,9 @@ Write-Host "Groups:`n$($groups -join "`n")"
 Write-Host "`n"
 Write-Host "Privileges:`n$($privileges -join "`n")"
 
+Write-Host "`n"
+Write-Host "## Kerberos tickets"
+$tickets | Format-Table -AutoSize
 
 Write-Host "`n"
 Write-Host "Importing powerview and powerup modules"
