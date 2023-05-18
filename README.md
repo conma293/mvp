@@ -1,6 +1,9 @@
 # Bypass EP
 Start PowerShell from cmd.exe:
+
 powershell.exe -ep bypass
+
+
 
 OR If already running-
 
