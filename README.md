@@ -1,4 +1,4 @@
-Invoke-Mimikatz has been modded to execute on recent Windows versions based on - https://github.com/mitre/caldera/issues/38#issuecomment-396055260
+Invoke-Mimikatz.ps1 has been modded to execute on recent Windows versions based on - https://github.com/mitre/caldera/issues/38#issuecomment-396055260
 
 # Bypass EP
 Start PowerShell from cmd.exe:
