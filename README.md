@@ -30,5 +30,5 @@ If already running:
 
 
 
-# Download Cradle and general good refs
+# More Cradles and general good refs
 https://github.com/In3x0rabl3/OSEP/blob/main/osep_reference.md#download-cradle
