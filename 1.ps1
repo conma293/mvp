@@ -136,6 +136,8 @@ if (Test-Path ".\PowerView.ps1") {
         Write-Output "Could not IMPORT PowerView: $($_.Exception.Message)"
     }
         }
+        
+        
 
 ## Import PowerUp script if available
 if (Test-Path ".\PowerUp.ps1") {
@@ -148,3 +150,7 @@ if (Test-Path ".\PowerUp.ps1") {
         Write-Output "Could not IMPORT PowerUp: $($_.Exception.Message)"
     }
         }
+
+
+get-domainuser -identity $env:username
+get-domaingroup -identity $env:username
