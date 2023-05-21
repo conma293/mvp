@@ -2,9 +2,11 @@
 $computerName = $env:COMPUTERNAME
 $localIP = (Get-NetIPAddress -AddressFamily IPv4 | Where-Object {$_.InterfaceAlias -notlike 'Loopback' -and $_.IPAddress -notlike '169.*'}).IPAddress
 #$localIP = (Get-NetIPAddress | Where-Object {$_.AddressFamily -eq 'IPv4' -and $_.InterfaceAlias -like 'Wi-Fi'}).IPAddress
-$domain = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain().Name
-$domainContext = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain().GetDirectoryContext()
-$domainController = ([System.DirectoryServices.ActiveDirectory.DomainController]::FindOne($domainContext)).Name
+$domain = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()
+$domainController = $domain.DomainControllers[0].Name
+#$domain = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain().Name
+#$domainContext = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain().GetDirectoryContext()
+#$domainController = ([System.DirectoryServices.ActiveDirectory.DomainController]::FindOne($domainContext)).Name
 $logonserver=$Env:LOGONSERVER
 
 ## User information
