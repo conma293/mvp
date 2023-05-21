@@ -108,7 +108,7 @@ Write-Host "`n"
 
 
 Write-Host "[!] Remember to re-run bloodhound or enum after every new user/machine access"
-Write-Host "[!] And then you would probably want to run:"
+Write-Host "[*] And then based on that you may want to try new targets:"
 Write-Host "[*] Invoke-UserHunter"
 Write-Host "[*] Get-NetLoggedon"
 Write-Host "`n"
