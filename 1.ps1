@@ -4,9 +4,6 @@ $localIP = (Get-NetIPAddress -AddressFamily IPv4 | Where-Object {$_.InterfaceAli
 #$localIP = (Get-NetIPAddress | Where-Object {$_.AddressFamily -eq 'IPv4' -and $_.InterfaceAlias -like 'Wi-Fi'}).IPAddress
 $domain = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()
 $domainController = $domain.DomainControllers[0].Name
-#$domain = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain().Name
-#$domainContext = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain().GetDirectoryContext()
-#$domainController = ([System.DirectoryServices.ActiveDirectory.DomainController]::FindOne($domainContext)).Name
 $logonserver=$Env:LOGONSERVER
 
 ## User information
@@ -122,12 +119,12 @@ Get-DomainUser -Identity $identity
 Write-Host "`n"
 Write-Host "## Domain Group information:"
 # Run Get-DomainGroup command
-Get-DomainGroup -Identity $identity
+Get-DomainGroup -UserName $identity
 
 Write-Host "`n"
 Write-Host "## Domain Group Member information:"
 # Run Get-DomainGroupMember command
-Get-DomainGroupMember -Identity $identity
+Get-DomainGroupMember -MemberName $identity
 
 
 <#
