@@ -175,8 +175,11 @@ if (Test-Path ".\PowerUp.ps1") {
         Write-Output "Could not IMPORT PowerUp: $($_.Exception.Message)"
     }
         }
-
-
-get-domainuser -identity $env:username
-get-domaingroup -identity $env:username
 #>
+$identity = $env:USERNAME
+
+# Run Get-DomainUser command
+Get-DomainUser -Identity $identity
+
+# Run Get-DomainGroup command
+Get-DomainGroup -Identity $identity
