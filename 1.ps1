@@ -128,6 +128,8 @@ Write-Host "[*] Invoke-AllChecks"
 Write-Host "[*] Get-ModifiableService(File) | select servicename, abusefeature"
 Write-Host "[*] Find-LocalAdminAccess -CheckAccess"
 
+Write-Host "`n"
+Write-Host "[*] Remember to re-run bloodhound or enum after every new user/machine access!"
 
 
 
