@@ -112,3 +112,4 @@ Write-Host "[*] Invoke-UserHunter for users/groups you want to target - will ret
 Write-Host "[*] Get-NetLoggedon –ComputerName (needs localadmin) or similar to hunt a machine"
 Write-Host "`n"
 #Write-Host "`n"
+<#
