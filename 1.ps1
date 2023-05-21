@@ -119,7 +119,7 @@ Get-DomainUser -Identity $identity
 Write-Host "`n"
 Write-Host "## Domain Group information:"
 # Run Get-DomainGroup command
-Get-DomainGroup -UserName $identity
+Get-DomainGroup -UserName "$identity"
 
 Write-Host "`n"
 Write-Host "## Domain Group Member information:"
