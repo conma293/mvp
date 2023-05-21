@@ -114,12 +114,22 @@ $identity = $env:USERNAME
 Write-Host "`n"
 Write-Host "## Domain User information:"
 # Run Get-DomainUser command
-Get-DomainUser -Identity $identity
+Get-DomainUser -Identity $identity #| select name,description,distinguishedname,memberof,lastloggedon,timesloggedon,
 
 Write-Host "`n"
 Write-Host "## Domain Group information:"
 # Run Get-DomainGroup command
 Get-DomainGroup -UserName "$identity" | select name,description,distinguishedname,memberof
+
+
+Write-Host "`n"
+Write-Host "[!] You now probably want to run:"
+Write-Host "[1] Invoke-AllChecks"
+Write-Host "[2] Get-ModifiableService(File) | select servicename, abusefeature"
+Write-Host "[3] Find-LocalAdminAccess -CheckAccess"
+
+
+
 
 <#
 # DOWNLOAD SCRIPTS TO DISK AND IMPORT AS MODULES#
