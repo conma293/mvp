@@ -114,12 +114,20 @@ Write-Host "Getting Domain User and Group info from Powerview..."
 
 $identity = $env:USERNAME
 
+Write-Host "`n"
+Write-Host "## Domain User information:"
 # Run Get-DomainUser command
 Get-DomainUser -Identity $identity
 
+Write-Host "`n"
+Write-Host "## Domain Group information:"
 # Run Get-DomainGroup command
 Get-DomainGroup -Identity $identity
 
+Write-Host "`n"
+Write-Host "## Domain Group Member information:"
+# Run Get-DomainGroupMember command
+Get-DomainGroupMember -Identity $identity
 
 
 <#
