@@ -111,3 +111,4 @@ Write-Host "[!] Remember to re-run bloodhound or enum after every new user/machi
 Write-Host "[*] Invoke-UserHunter for users/groups you want to target - will return all active sessions"
 Write-Host "[*] Get-NetLoggedon –ComputerName (needs localadmin) or similar to hunt a machine"
 Write-Host "`n"
+#Write-Host "`n"
