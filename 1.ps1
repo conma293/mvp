@@ -13,24 +13,6 @@ $sid = $windowsIdentity.User.Value
 $groups = $windowsIdentity.Groups | ForEach-Object {$_.Translate([System.Security.Principal.NTAccount]).Value}
 
 <#
-## Privileges
-$privilegeType = [System.Enum]::GetValues([System.Security.AccessControl.PrivilegeType])
-$privileges = $privilegeType | ForEach-Object {
-    $privilege = $null
-    try {
-        $privilege = New-Object System.Security.AccessControl.Privilege($_)
-        $isEnabled = $privilege.EnablePrivilege()
-        if ($isEnabled) {
-            $_.ToString()
-        }
-    } catch {
-        Write-Host "Failed to check privilege: $_"
-    } finally {
-        if ($privilege -ne $null) {
-            $privilege.RevertPrivilege()
-        }
-    }
-}
 
 ## Kerberos tickets
 $tickets = $windowsIdentity.Tickets | ForEach-Object {
@@ -42,11 +24,6 @@ $tickets = $windowsIdentity.Tickets | ForEach-Object {
     }
     New-Object -TypeName PSObject -Property $ticketInfo
 }
-#>
-
-<#
-Write-Host "`n"
-Write-Host "Privileges:`n$($privileges -join "`n")"
 
 Write-Host "`n"
 Write-Host "## Kerberos tickets"
