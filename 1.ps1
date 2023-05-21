@@ -12,8 +12,8 @@ $userName = $windowsIdentity.Name
 $sid = $windowsIdentity.User.Value
 $groups = $windowsIdentity.Groups | ForEach-Object {$_.Translate([System.Security.Principal.NTAccount]).Value}
 
-<#
 
+<#
 ## Kerberos tickets
 $tickets = $windowsIdentity.Tickets | ForEach-Object {
     $ticket = $_
