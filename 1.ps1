@@ -85,11 +85,10 @@ if (-not (Get-Help Get-DomainUser)) {
         Write-Output "Could not download PowerView: $($_.Exception.Message)"
     }
   }
-<#
 } else {
     Write-Output "PowerView already here!"
 }
-#>
+}
 
 <#
 Write-Host "`n"
