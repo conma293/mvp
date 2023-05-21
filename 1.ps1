@@ -112,10 +112,8 @@ Write-Host "[*] Invoke-UserHunter for users/groups you want to target - will ret
 Write-Host "[*] Get-NetLoggedon –ComputerName (needs localadmin) or similar to hunt a machine"
 Write-Host "`n"
 
-<#
 
 <#
-
 # DOWNLOAD SCRIPTS TO DISK AND IMPORT AS MODULES#
 Write-Host "`n"
 Write-Host "Importing powerview and powerup modules"
