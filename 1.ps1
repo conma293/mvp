@@ -130,8 +130,8 @@ Write-Host "[*] Find-LocalAdminAccess -CheckAccess"
 Write-Host "`n"
 
 Write-Host "[!] Remember to re-run bloodhound or enum after every new user/machine access!"
-#Write-Host "[*] Invoke-UserHunter for users/groups you want to target - will show all active sessions for users/users of specified groups"
-#Write-Host "[*] Get-NetLoggedon –ComputerName <hostname> (needs localadmin) or similar to hunt a machine"
+Write-Host "[*] Invoke-UserHunter for users/groups you want to target - will show all active sessions for users/users of specified groups"
+Write-Host "[*] Get-NetLoggedon –ComputerName (needs localadmin) or similar to hunt a machine"
 Write-Host "`n"
 
 
