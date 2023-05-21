@@ -86,6 +86,8 @@ if (-not (Get-Help Get-DomainUser)) {
     }
 } else {
     Write-Output "PowerView already here!"
+}
+
 
 <#
 Write-Host "`n"
