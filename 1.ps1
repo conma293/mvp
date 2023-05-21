@@ -114,7 +114,6 @@ Write-Host "`n"
 
 <#
 
-<#
 # DOWNLOAD SCRIPTS TO DISK AND IMPORT AS MODULES#
 Write-Host "`n"
 Write-Host "Importing powerview and powerup modules"
