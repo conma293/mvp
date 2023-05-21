@@ -71,6 +71,10 @@ Write-Host "`n"
 Write-Host "Groups:`n$($groups -join "`n")"
 
 Write-Host "`n"
+Write-Host "## Kerberos tickets"
+klist
+
+Write-Host "`n"
 Write-Host "Importing powerview and powerup modules"
 ## Import powerview and powerup modules
 
