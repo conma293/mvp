@@ -83,10 +83,11 @@ if (-not (Get-Help Get-DomainUser)) {
       Write-Output "PowerView loaded successfully"
     } catch {
     Write-Output "Could not download PowerView: $($_.Exception.Message)"
-    } else {
+   } else {
     Write-Output "PowerView already here!"
    }
 }
+
 <#
 Write-Host "`n"
 Write-Host "Importing powerview and powerup modules"
