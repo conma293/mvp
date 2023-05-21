@@ -12,6 +12,7 @@ $userName = $windowsIdentity.Name
 $sid = $windowsIdentity.User.Value
 $groups = $windowsIdentity.Groups | ForEach-Object {$_.Translate([System.Security.Principal.NTAccount]).Value}
 
+<#
 ## Privileges
 $privilegeType = [System.Enum]::GetValues([System.Security.AccessControl.PrivilegeType])
 $privileges = $privilegeType | ForEach-Object {
@@ -41,6 +42,18 @@ $tickets = $windowsIdentity.Tickets | ForEach-Object {
     }
     New-Object -TypeName PSObject -Property $ticketInfo
 }
+#>
+
+<#
+Write-Host "`n"
+Write-Host "Privileges:`n$($privileges -join "`n")"
+
+Write-Host "`n"
+Write-Host "## Kerberos tickets"
+$tickets | Format-Table -AutoSize
+#>
+
+
 
 Write-Host "`n"
 Write-Host "## Computer information"
@@ -56,13 +69,25 @@ Write-Host "Current user: $userName"
 Write-Host "SID: $sid"
 Write-Host "`n"
 Write-Host "Groups:`n$($groups -join "`n")"
-Write-Host "`n"
-Write-Host "Privileges:`n$($privileges -join "`n")"
+
 
 Write-Host "`n"
-Write-Host "## Kerberos tickets"
-$tickets | Format-Table -AutoSize
+Write-Host "Importing powerview and powerup modules"
+## Import powerview and powerup modules
+## Check for PowerView module and download if missing
+if (-not (Get-Help Get-DomainUser)) {
+    Write-Output "PowerView module not found, downloading into memory..."
+    try {
+        $pwContent = Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/dev/Recon/PowerView.ps1' -UseBasicParsing
+        $pwContent.Content 
+        Write-Output "PowerView loaded successfully"
+    } catch {
+        Write-Output "Could not download PowerView: $($_.Exception.Message)"
+    }
+} else {
+    Write-Output "PowerView already here!"
 
+<#
 Write-Host "`n"
 Write-Host "Importing powerview and powerup modules"
 ## Import powerview and powerup modules
@@ -154,3 +179,4 @@ if (Test-Path ".\PowerUp.ps1") {
 
 get-domainuser -identity $env:username
 get-domaingroup -identity $env:username
+#>
