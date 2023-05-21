@@ -1,6 +1,6 @@
 ## Computer information
 $computerName = $env:COMPUTERNAME
-$localIP = (Get-NetIPAddress -AddressFamily IPv4 | Where-Object {$_.InterfaceAlias -notlike 'Loopback' -and $_.InterfaceAlias -notlike 'Loopback' -and $_.AddressFamily -like 'IPv4'}).IPAddress
+$localIP = (Get-NetIPAddress -AddressFamily IPv4 | Where-Object {$_.InterfaceAlias -notlike 'Loopback' -and $_.IPAddress -notlike '169.*'}).IPAddress
 #$localIP = (Get-NetIPAddress | Where-Object {$_.AddressFamily -eq 'IPv4' -and $_.InterfaceAlias -like 'Wi-Fi'}).IPAddress
 $domain = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain().Name
 $domainContext = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain().GetDirectoryContext()
