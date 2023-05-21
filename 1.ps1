@@ -119,13 +119,7 @@ Get-DomainUser -Identity $identity
 Write-Host "`n"
 Write-Host "## Domain Group information:"
 # Run Get-DomainGroup command
-Get-DomainGroup -UserName "$identity"
-
-Write-Host "`n"
-Write-Host "## Domain Group Member information:"
-# Run Get-DomainGroupMember command
-Get-DomainGroupMember -MemberName $identity
-
+Get-DomainGroup -UserName "$identity" | select name,description,distinguishedname,memberof
 
 <#
 # DOWNLOAD SCRIPTS TO DISK AND IMPORT AS MODULES#
