@@ -91,7 +91,7 @@ $identity = $env:USERNAME
 Write-Host "`n"
 Write-Host "## Domain User information:"
 # Run Get-DomainUser command
-Get-DomainUser -Identity $identity #| select name,description,distinguishedname,memberof,lastloggedon,timesloggedon,
+Get-DomainUser -Identity $identity | select timesloggedon,name,samaccountname,description,distinguishedname,userprincipalname,serviceprincipalname,accountexpires,memberof,whencreated,lastlogon,lastlogoff,badpwdcount
 
 Write-Host "`n"
 Write-Host "## Domain Group information:"
