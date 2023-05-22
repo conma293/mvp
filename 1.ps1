@@ -102,7 +102,7 @@ Get-DomainGroup -UserName "$identity" | select name,description,distinguishednam
 Write-Host "`n"
 Write-Host "[!] You now probably want to run:"
 Write-Host "[*] Invoke-AllChecks"
-Write-Host "[*] Get-ModifiableService(File) | select servicename, abusefeature"
+Write-Host "[*] Get-ModifiableService(File) | select servicename, abusefunction"
 Write-Host "[*] Find-LocalAdminAccess -CheckAccess"
 Write-Host "`n"
 
